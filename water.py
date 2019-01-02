@@ -32,8 +32,7 @@ def auto_water(delay = 5, pump_pin = 7, water_sensor_pin = 8):
             time.sleep(delay)
             wet = get_status(pin = water_sensor_pin) == 0
             if not wet:
-                if consecutive_water_count < 5:
-                    pump_on(pump_pin, 1)
+                pump_on(pump_pin, 2)
                 consecutive_water_count += 1
             else:
                 consecutive_water_count = 0
@@ -46,6 +45,6 @@ def pump_on(pump_pin = 7, delay = 1):
     f.write("Last watered {}".format(datetime.datetime.now()))
     f.close()
     GPIO.output(pump_pin, GPIO.LOW)
-    time.sleep(1)
+    time.sleep(delay)
     GPIO.output(pump_pin, GPIO.HIGH)
     
